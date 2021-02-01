@@ -105,7 +105,18 @@ namespace FileServiceAPI.Controllers
         public async Task<ActionResult> GetContent(Guid id)
         {
             var file = await _metaData.GetFileAsync(id);
+
+            if (file == null)
+            {
+                return NotFound();
+            }
+
             var contentStream = await _blobService.DownloadFileAsync(id);
+
+            if (contentStream == null)
+            {
+                return NotFound();
+            }
 
             return File(contentStream, "application/octet-stream", file.Properties.Name);
         }
