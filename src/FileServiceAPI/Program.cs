@@ -9,8 +9,11 @@ using System.Threading.Tasks;
 
 namespace FileServiceAPI
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class Program
     {
+        public const string AppName = "File Service Example";
+
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -23,4 +26,5 @@ namespace FileServiceAPI
                     webBuilder.UseStartup<Startup>();
                 });
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Owner>Justin R. Buchanan</Owner>
+    <Authors>Justin R. Buchanan</Authors>
+    <Copyright>2020 Justin R. Buchanan</Copyright>
+  </PropertyGroup>
+</Project>

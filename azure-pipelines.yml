@@ -1,0 +1,29 @@
+name: $(Rev:rrrrr)
+pool:
+  vmImage: windows-2019
+trigger:
+  branches:
+    include:
+    - master
+    - refs/tags/*
+  paths:
+    exclude:
+    - README.md
+steps:
+- task: PowerShell@1
+  displayName: 'Build'
+  inputs:
+    scriptName: build.ps1
+    arguments: '-NoTest'
+- task: DotNetCoreCLI@2
+  displayName: 'Run Unit Tests'
+  inputs:
+    command: test
+    projects: 'tests\**\*UnitTests.csproj'
+    arguments: '--no-build --configuration Release'
+    verbosityPack: Minimal
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: WebApp'
+  inputs:
+    PathtoPublish: src/FileServiceAPI/bin/Release/net5.0/publish
+    ArtifactName: WebApp
