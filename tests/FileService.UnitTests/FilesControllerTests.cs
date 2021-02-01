@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace FileService.UnitTests
@@ -144,6 +145,32 @@ namespace FileService.UnitTests
 
             Assert.IsNull(meta);
             Assert.IsNull(stream);
+        }
+
+        [TestMethod]
+        public async Task FilesController_GetContent_GetsAllBytes()
+        {
+            var store = new InMemoryFileService();
+            var controller = new FilesController(store, store);
+
+            var result = await controller.Post(new FileServiceAPI.Application.Domain.FileCreationProperties()
+            {
+                Name = "image.png"
+            });
+            var createdRecord = result.Value as Record<FileProperties>;
+
+            using var buffer = new MemoryStream(Convert.FromBase64String(TestImage));
+            var file = new FormFile(buffer, 0, buffer.Length, "image.png", "image.png");
+
+            var uploadResult = await controller.PostContent(createdRecord.ID, file);
+
+            var downloadResult = await controller.GetContent(createdRecord.ID);
+
+            var fileResult = downloadResult as FileStreamResult;
+
+            Assert.AreEqual("application/octet-stream", fileResult.ContentType);
+            Assert.AreEqual("image.png", fileResult.FileDownloadName);
+            Assert.AreEqual(34357L, fileResult.FileStream.Length);
         }
     }
 }

@@ -94,7 +94,21 @@ namespace FileServiceAPI.Controllers
             await _metaData.SetLengthAsync(id, contentLength);
 
             return NoContent();
-        }       
+        }
+
+        /// <summary>
+        /// Gets the file contents
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}/Content")]
+        public async Task<ActionResult> GetContent(Guid id)
+        {
+            var file = await _metaData.GetFileAsync(id);
+            var contentStream = await _blobService.DownloadFileAsync(id);
+
+            return File(contentStream, "application/octet-stream", file.Properties.Name);
+        }
 
         /// <summary>
         /// Deletes the given file metadata and content by ID.
