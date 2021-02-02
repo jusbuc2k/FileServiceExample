@@ -2,6 +2,12 @@
   "version": 1,
   "dependencies": {
     ".NETCoreApp,Version=v5.0": {
+      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+        "type": "Direct",
+        "requested": "[1.10.9, )",
+        "resolved": "1.10.9",
+        "contentHash": "Sug+YeP9YYigFnUdvPCUJjBz7cc2VVR7UBZkIRwPWmVR/HmIM5HbcpX940s4BM3xgL3QHGp3qN7AqkcZ/MjZEw=="
+      },
       "Nerdbank.GitVersioning": {
         "type": "Direct",
         "requested": "[3.3.37, )",
@@ -50,9 +56,6 @@
         "type": "Transitive",
         "resolved": "5.6.3",
         "contentHash": "BPvcPxQRMsYZ3HnYmGKRWDwX4Wo29WHh14Q6B10BB8Yfbbcza+agOC2UrBFA1EuaZuOsFLbp6E2+mqVNF/Je8A=="
-      },
-      "fileservice.infrastructure": {
-        "type": "Project"
       }
     }
   }
